@@ -32,6 +32,30 @@ describe("noter", () => {
     );
   });
 
+  it("It Can Update a note!", async () => {
+    await program.methods
+      .updateNote("Updated content here")
+      .accounts({
+        note: note.publicKey,
+        // user: provider.wallet.publicKey,
+      })
+      .rpc();
+
+    // const MESSAGE = "New";
+
+    // await program.methods
+    //   .updateNote(MESSAGE)
+    //   .accounts({
+    //     note: note.publicKey,
+    //     // user: provider.wallet.publicKey,
+    //   })
+    //   .signers([note])
+    //   .rpc();
+
+    let newNote = await program.account.note.fetch(note.publicKey);
+    console.log(newNote);
+  });
+
   it("It Can delete a note!", async () => {
     await program.methods
       .deleteNote()
